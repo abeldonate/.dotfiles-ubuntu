@@ -1,0 +1,30 @@
+{
+    "workbench.colorTheme": "Default Dark Modern",
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "keyboard.dispatch": "keyCode",
+    "editor.quickSuggestions": {
+        "other": false,
+        "comments": false,
+        "strings": false
+      },
+    "editor.hover.enabled": false,
+
+    "[latex]": {
+        "editor.wordWrap": "on"
+    },
+    "git.confirmSync": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "git.enableSmartCommit": true,
+}
+
+
+
+
+
+
+
+
+
+
