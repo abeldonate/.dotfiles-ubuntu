@@ -1,7 +1,7 @@
 
-xmonad.hs:253:1: warning: [-Wtabs]
-    Tab character found here, and in one further location.
+xmonad.hs:265:1: warning: [-Wtabs]
+    Tab character found here, and in three further locations.
     Please use spaces instead.
     |
-253 |         spawnOnce "feh --bg-scale /usr/share/backgrounds/warty-final-ubuntu.png &"
+265 |         spawnOnce "feh --bg-scale /usr/share/backgrounds/warty-final-ubuntu.png &"
     | ^^^^^^^^

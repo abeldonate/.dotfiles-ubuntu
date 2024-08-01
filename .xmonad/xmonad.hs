@@ -3,8 +3,12 @@ import Data.Monoid
 import System.Exit
 
 import XMonad.Layout.Spacing
+import XMonad.Hooks.ManageDocks
 import XMonad.Util.SpawnOnce
+import XMonad.Util.Run
 import Graphics.X11.ExtraTypes.XF86
+import XMonad.Layout.IndependentScreens
+import XMonad.Actions.SpawnOn
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -16,7 +20,7 @@ myTerminal      = "gnome-terminal"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
-myFocusFollowsMouse = True
+myFocusFollowsMouse = False
 
 -- Whether clicking on a window to focus also passes the click to the window
 myClickJustFocuses :: Bool
@@ -49,6 +53,9 @@ myWorkspaces    = ["0","1","2","3","4","5","6","7","8","9"]
 myFocusedBorderColor  = "#B48EAD"
 myNormalBorderColor = "#454849"
 
+
+-- myConfig = def { workspaces = withScreens 2 ["0","1","2","3","4","5","6","7","8","9"] }
+
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
@@ -79,6 +86,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_b     ), spawn "firefox")
     , ((modm,               xK_n     ), spawn "firefox --private-window")
 
+    -- launch nautilus
+    , ((modm,               xK_f     ), spawn "nautilus")
+
     -- close focused window
     , ((modm,               xK_q     ), kill)
 
@@ -91,10 +101,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Resize viewed windows to the correct size
     --, ((modm,               xK_n     ), refresh)
 
-    -- Move focus to the next window
+    -- Move focus
     , ((modm,               xK_l     ), windows W.focusDown)
-
-    -- Move focus to the previous window
     , ((modm,               xK_h     ), windows W.focusUp  )
 
     -- Move focus to the master window
@@ -186,7 +194,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = tiled ||| Mirror tiled ||| Full
+myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -218,7 +226,11 @@ myLayout = tiled ||| Mirror tiled ||| Full
 --
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
+    , className =? "Org.gnome.Nautilus"        --> doFloat
     , className =? "Gimp"           --> doFloat
+    , className =? "Whatsapp-for-linux" --> doShift "0"
+    , className =? "TelegramDesktop"       --> doShift "0"
+    , className =? "Todoist"       --> doShift "9"
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore ]
 
@@ -258,7 +270,9 @@ myStartupHook = do
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
-main = xmonad defaults
+main = do
+	xmproc <- spawnPipe "xmobar -x 0 /home/abel/.config/xmobar/xmobar.config"
+	xmonad $ docks defaults
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
