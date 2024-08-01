@@ -6,10 +6,12 @@ HOME_PKG=(
 )
 
 HOME_INDEP_PKG=(
+    .xmonad
 )
 
 # packages going to $CONFIG
 CONFIG_PKG=(
+
 )
 
 # packages going to $CONFIG/<package-name>
