@@ -139,8 +139,8 @@ ex ()
 }
 
 
-if [ -f ~/.dotfiles/bash/.bash_aliases ]; then
-	. ~/.dotfiles/bash/.bash_aliases
+if [ -f ~/.dotfiles-ubuntu/bash/.bash_aliases ]; then
+	. ~/.dotfiles-ubuntu/bash/.bash_aliases
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

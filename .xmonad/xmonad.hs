@@ -4,6 +4,7 @@ import System.Exit
 
 import XMonad.Layout.Spacing
 import XMonad.Hooks.ManageDocks
+import XMonad.Actions.GroupNavigation
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Run
 import Graphics.X11.ExtraTypes.XF86
@@ -70,14 +71,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Power
     , ((modm,               xK_x     ), spawn "systemctl suspend")
+    , ((modm .|. shiftMask, xK_Delete     ), spawn "poweroff")
 
     -- volume
     , ((0,               xF86XK_AudioLowerVolume     ), spawn "amixer -c 1 sset Master 5%-")
     , ((0,               xF86XK_AudioRaiseVolume     ), spawn "amixer -c 1 sset Master 5%+")
     , ((0,               xF86XK_AudioMute     ), spawn "amixer -c 1 sset Master toggle")
 
-    , ((0,               xF86XK_MonBrightnessDown     ), spawn "brightnessctl s 5%-")
-    , ((0,               xF86XK_MonBrightnessUp     ), spawn "brightnessctl s +5%")
+    , ((0,               xF86XK_MonBrightnessDown     ), spawn "brightnessctl set 5%-")
+    , ((0,               xF86XK_MonBrightnessUp     ), spawn "brightnessctl set +5%")
 
     -- launch gmrun
     , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
@@ -97,6 +99,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     --  Reset the layouts on the current workspace to default
     , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
+
+    -- Previous window
+    , ((mod1Mask, xK_Tab), nextMatch History (return True))
 
     -- Resize viewed windows to the correct size
     --, ((modm,               xK_n     ), refresh)
@@ -272,7 +277,7 @@ myStartupHook = do
 --
 main = do
 	xmproc <- spawnPipe "xmobar -x 0 /home/abel/.config/xmobar/xmobar.config"
-	xmonad $ docks defaults
+	xmonad $ docks defaults { logHook = historyHook }
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will

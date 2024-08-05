@@ -26,6 +26,7 @@ PROG_AUR=(
 	whatsapp-for-linux
 	obsidian
 	todoist
+	bitwarden
 )
 
 function intro {

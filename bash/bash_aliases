@@ -8,9 +8,22 @@ alias cl="clear"
 
 # Programs
 alias gs="git status"
-alias addall="git add --all"
-alias g++c="g++ --std=c++17 -Wall -O2 -fsanitize=address"
+alias gadd="git add --all"
 alias autostow="(cd ~/dotfiles; ~/dotfiles/autostow.sh)"
 alias reboot="sudo systemctl reboot"
 alias poweroff="sudo systemctl poweroff"
-alias halt="sudo systemctl halt"
+
+
+#Aliases for edit dotfiles
+alias dot='cd ~/.dotfiles'
+alias autostow="~/.dotfiles/autostow.sh"
+alias stowedit="vim ~/.dotfiles/autostow.sh"
+alias zshrcedit="vim ~/.dotfiles/zsh/.zshrc"
+alias aliasedit="vim ~/.dotfiles/zsh/.zsh_aliases; source ~/.zshrc"
+alias alacrittyedit="vim ~/.dotfiles/alacritty/alacritty.yml"
+alias vimrcedit="vim ~/.dotfiles/vim/.vimrc"
+alias bspwmrcedit="vim ~/.dotfiles/bspwm/bspwmrc"
+alias sxhkdrcedit="vim ~/.dotfiles/sxhkd/sxhkdrc"
+alias picomedit="vim ~/.dotfiles/picom/picom.conf"
+alias packagesedit="vim ~/.dotfiles/install/packages.sh"
+alias snippetsedit="vim ~/.dotfiles/nvim/UltiSnips/tex.snippets"
